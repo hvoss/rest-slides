@@ -1,10 +1,368 @@
-<html lang="en">
+<!doctype html>
+<html lang="de">
+
 <head>
-<meta charset="utf-8"/>
-<title>(My presentation title)</title>
-<meta name="author" content="(John Stevenson)"/>
-<link rel="stylesheet" href="./css/reveal.min.css"/>
-<link rel="stylesheet" href="./css/theme/jr0cket.css" id="theme"/>
-<link rel="stylesheet" href="./css/print/pdf.css" type="text/css" media="print"/>
-  <meta name="description" content="My presentation title">
+  <meta charset="utf-8">
+
+  <meta name="description" content="Eine kurze Einführung in REST-Webservices">
+  <meta name="author" content="Henrik Voß">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/black.css">
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+
+  <style>
+    .myred {
+      color: #ff2c2d;
+    }
+
+    .mygreen {
+      color: #17ff2e;
+    }
+
+    .smaller {
+      font-size: smaller!important;
+    }
+
+    .leftcolumn {
+      margin-left: 16%!important;
+      width: 33%;
+      float: left;
+    }
+
+    .rightcolumn {
+      width: 33%;
+      float: left;
+    }
+  </style>
+
+  <title>REST-Webservices</title>
 </head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>REST- Webservices</h1>
+        <p class="smaller">Henrik Voß<br />05. Januar 18</p>
+      </section>
+      <section>
+        <h2>Inhalt</h2>
+        <ul>
+          <li>Einführung</li>
+          <li>Grundlagen von HTTP</li>
+          <li>REST-API Design</li>
+          <li>Schnittstellen-Dokumentation</li>
+        </ul>
+      </section>
+      <section>
+        <section>
+          <h2>Was ist ein REST-Webservice?</h2>
+          <ul>
+            <li><span class="myred">Re</span>presentational <span class="myred">S</span>tate <span class="myred">T</span>ransfer</li>
+            <li>Architekturstil, keine Technologie/ Protokoll!</li>
+            <li>Im Jahr 2000 von Roy Fielding beschrieben</li>
+            <li>Basiert auf HTTP</li>
+            <li>Datenrepräsentation mit XML und/ oder <span class="myred">JSON</span></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Reifegradmodell</h2>
+        </section>
+        <section>
+          <h2>Prinzipien</h2>
+          <ul>
+            <li>Client-Server</li>
+            <li>Zustandslosigkeit</li>
+            <li>Caching</li>
+            <li class="fragment grow highlight-red" data-fragment-index="2">Einheitliche Schnittstelle</li>
+            <li>Mehrschichtige Systeme</li>
+            <li class="fragment shrink" data-fragment-index="1">Code on Demand</li>
+        </section>
+        <section>
+          <h2>Einheitliche Schnittstelle</h2>
+          <ul>
+            <li>Adressierbarkeit von Ressourcen</li>
+            <li>Repräsentationen zur Veränderung von Ressourcen</li>
+            <li>Selbstbeschreibende Nachrichten</li>
+            <li class="fragment grow highlight-red">Hypermedia as the Engine of Application State (HATEOAS)</li>
+          </ul>
+        </section>
+        <section>
+          <h2>HTTP-Request</h2>
+          <pre><code class="http smaller" data-trim>
+						GET http://server/ressource?parameter=4711 HTTP/1.1
+						HeaderFeld: test
+					</code></pre>
+
+          <pre><code class="http smaller" data-trim>
+						POST http://server/ressource HTTP/1.1
+						AnderesHeaderFeld: test2
+
+            </code><code class="xml" data-trim>
+							<daten>
+								<struktur>4711</struktur>
+							</daten>
+						</code></pre>
+          </pre>
+        </section>
+        <section>
+          <h2>HTTP-Response</h2>
+          <pre class="fragment"><code class="http smaller" data-trim>
+						HTTP/1.1 200 OK
+						HeaderFeld3: test3
+					</code><code class="xml" data-trim>
+						<daten>
+							<struktur>4712</struktur>
+						</daten>
+					</code></pre>
+
+          <pre class="fragment"><code class="http smaller" data-trim>
+						HTTP/1.1 404 Not Found
+					</code><code class="xml" data-trim>
+						<fehler>
+							<nachricht>Keine Daten gefunden</nachricht>
+						</fehler>
+					</code></pre>
+        </section>
+        <section>
+          <h2>HTTP-Methoden</h2>
+          <table class="reveal">
+            <thead>
+              <tr>
+                <th>Methode</th>
+                <th>Beschreibung</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GET</td>
+                <td class="smaller">fordert die angegebene Ressource an</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td class="smaller">fügt eine neue Sub-Ressource ein</td>
+              </tr>
+              <tr>
+                <td>PUT</td>
+                <td class="smaller">eine Ressource wird angelegt bzw. geändert</td>
+              </tr>
+              <tr>
+                <td>DELETE</td>
+                <td class="smaller">löscht die angegebene Ressource</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h2>HTTP-Statuscode</h2>
+          <table class="reveal">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Nachricht</th>
+                <th>Bedeutung</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>200</td>
+                <td>OK</td>
+                <td class="smaller">Die Anfrage wurde erfolgreich bearbeitet.</td>
+              </tr>
+              <tr>
+                <td>201</td>
+                <td>Created</td>
+                <td class="smaller">Die angeforderte Ressource wurde vor dem Senden der Antwort erstellt.</td>
+              </tr>
+              <tr>
+                <td>403</td>
+                <td>Forbidden</td>
+                <td class="smaller">Fehlende Client-Berechtigung.</td>
+              </tr>
+              <tr>
+                <td>404</td>
+                <td>Not Found</td>
+                <td class="smaller">Die angeforderte Ressource wurde nicht gefunden.</td>
+              </tr>
+              <tr>
+                <td>500</td>
+                <td>Internal Server Error</td>
+                <td class="smaller">Unerwartete Serverfehler</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h2>Beispiel</h2>
+
+          <div class="leftcolumn">
+            <h4 class="fragment" data-fragment-index="1">Kunde</h4>
+            <ul class="smaller fragment" data-fragment-index="1">
+              <li>Kundennummer</li>
+              <li>Name</li>
+              <li>Adresse</li>
+              <li>Konten</li>
+            </ul>
+            <span class="smaller fragment" data-fragment-index="3">http://server/kunden</span>
+          </div>
+
+          <div class="rightcolumn">
+            <h4 class="fragment" data-fragment-index="2">Konto</h4>
+            <ul class="smaller fragment" data-fragment-index="2">
+              <li>Kontonummer</li>
+              <li>Bezeichnung</li>
+              <li>Saldo</li>
+              <li>Kunde</li>
+            </ul>
+            <span class="smaller fragment" data-fragment-index="4">http://server/konten</span>
+          </div>
+        </section>
+
+        <section>
+          <h2>Alle Kunden abfragen</h2>
+          <pre><code class="http" data-trim>
+						GET http://server/kunden/ HTTP/1.1
+					</code></pre>
+
+          <pre class="fragment"><code class="http">HTTP/1.1 200 OK</code><code class="xml smaller" data-trim>
+							<kunden>
+								<kunde nr="4711">
+									<name>Max Mustermann</name>
+									<adresse>Musterstraße 42, 2819 Bremen</adresse>
+								</kunde>
+								<kunde nr="4712">
+									<name>Maxi Musterfrau</name>
+									<adresse>Musterstraße 43, 2819 Bremen</adresse>
+								</kunde>
+							</kunden>
+						</code></pre>
+        </section>
+
+        <section>
+          <h2>Einen Kunden abfragen</h2>
+          <pre><code class="http" data-trim>
+						GET http://server/kunden/4711 HTTP/1.1
+					</code></pre>
+
+          <pre class="fragment"><code class="http">HTTP/1.1 200 OK</code><code class="xml smaller" data-trim>
+						<kunde nr="4711">
+							<name>Max Mustermann</name>
+							<adresse>Musterstraße 42, 2819 Bremen</adresse>
+							<konten>
+								<konto nr="471101">
+									<bezeichnung>Gehaltskonto</bezeichnung>
+									<saldo>123,45 €</saldo>
+								</konto>
+								<konto nr="471102">
+									<bezeichnung>Sparkonto</bezeichnung>
+									<saldo>123450 €</saldo>
+								</konto>
+							</konten>
+						</kunde>
+					</code></pre>
+        </section>
+
+        <section>
+          <h2>Ein Konto eines Kunden abfragen</h2>
+          <pre><code class="http" data-trim>
+						GET http://server/kunden/4711/konten/471103 HTTP/1.1
+					</code></pre>
+
+          <pre class="fragment"><code class="http">HTTP/1.1 404 Not Found</code><code class="xml" data-trim>
+						<fehler>
+							<nachricht>Konto nicht gefunden</nachricht>
+						</fehler>
+					</code></pre>
+        </section>
+
+        <section>
+          <h2>Ein Konto anlegen</h2>
+          <pre><code class="http" data-trim>
+						POST http://server/kunden/4711/konten/ HTTP/1.1
+					</code><code class="xml" data-trim>
+								<konto nr="471103">
+									<bezeichnung>Bausparkonto</bezeichnung>
+								</konto>
+						</code></pre>
+
+
+          <pre class="fragment"><code class="http">201 - Created</code><code class="xml" data-trim>
+							<konto nr="471103">
+								<bezeichnung>Bausparkonto</bezeichnung>
+								<saldo>0,00 €</saldo>
+							</konto>
+					</code></pre>
+        </section>
+
+        <section>
+          <h2>Angelegtes Konto abrufen</h2>
+          <pre><code class="http" data-trim>
+						GET http://server/kunden/4711/konten/471103 HTTP/1.1
+					</code></pre>
+
+          <pre class="fragment" data-trim><code class="http">200 - OK</code><code class="xml" data-trim>
+							<konto nr="471103">
+								<bezeichnung>Bausparkonto</bezeichnung>
+								<saldo>0,00 €</saldo>
+							</konto>
+					</code></pre>
+        </section>
+
+        <section>
+          <h2>So nicht:</h2>
+          <span class="fragment"><strong>GET</strong> konto_lesen/kontodaten_lesen_zu_konto</span>
+          <span class="fragment">/{userid}</span><span class="fragment">/{opt1}</span><span class="fragment">/{opt2}</span><span class="fragment">/{opt3}</span><span class="fragment">/{isowhrcd}</span><span class="fragment">/{pgmname}</span><span class="fragment">/{aufrufer}</span>
+          <span
+            class="fragment">?kontonr={kontonr}</span>
+        </section>
+
+        <section>
+          <h2>Besser:</h2>
+          <pre><code class="http" data-trim>
+						GET http://server/konten/{nr}/{iso}?opt1=J&amp;opt3=J HTTP/1.1
+						pgmname: ProduktXY
+						aufrufer: CCB
+						userid: cq2vosh
+					</code></pre>
+        </section>
+
+      </section>
+
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+  <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+      // Optional reveal.js plugins
+      dependencies: [{
+        src: 'plugin/highlight/highlight.js',
+        async: true,
+        callback: function() {
+          hljs.initHighlightingOnLoad();
+        }
+      }]
+    });
+    Reveal.configure({
+      slideNumber: true
+    });
+  </script>
+</body>
+
+</html>
