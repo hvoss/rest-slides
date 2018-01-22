@@ -46,13 +46,19 @@
   <div class="reveal">
     <div class="slides">
       <section>
-        <h1>REST- Webservices</h1>
-        <p class="smaller">Henrik Voß<br />05. Januar 18</p>
+      <div class="leftcolumn">
+          <br /><h1>REST</h1><br /><br />
+          <p class="smaller">Henrik Voß<br />22. Januar 2018</p>
+      </div>
+        <div class="rightcolumn">
+          <img src="not-restful.jpg" alt="Geek and Poke: How to insult a developer" /><br />
+          <span style="font-size: x-small">Bild von <a href="http://geek-and-poke.com/geekandpoke/2013/6/14/insulting-made-easy">Geek and Poke</a></span>
+        </div>
       </section>
       <section>
         <h2>Inhalt</h2>
         <ul>
-          <li>Einführung</li>
+          <li>Was ist ein REST-Webservice?</li>
           <li>Grundlagen von HTTP</li>
           <li>REST-API Design</li>
           <li>Schnittstellen-Dokumentation</li>
@@ -63,15 +69,13 @@
           <h2>Was ist ein REST-Webservice?</h2>
           <ul>
             <li><span class="myred">Re</span>presentational <span class="myred">S</span>tate <span class="myred">T</span>ransfer</li>
-            <li>Architekturstil, keine Technologie/ Protokoll!</li>
+            <li class="fragment grow highlight-red" data-fragment-index="2">Architekturstil, keine Technologie/ Protokoll!</li>
             <li>Im Jahr 2000 von Roy Fielding beschrieben</li>
             <li>Basiert auf HTTP</li>
             <li>Datenrepräsentation mit XML und/ oder <span class="myred">JSON</span></li>
           </ul>
         </section>
-        <section>
-          <h2>Reifegradmodell</h2>
-        </section>
+
         <section>
           <h2>Prinzipien</h2>
           <ul>
@@ -91,6 +95,48 @@
             <li class="fragment grow highlight-red">Hypermedia as the Engine of Application State (HATEOAS)</li>
           </ul>
         </section>
+        <!--
+        <section>
+          <h2>Reifegradmodell</h2>
+          <table class="reveal">
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Eigenschaften</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0</td>
+                <td>verwendet XML-RPC oder SOAP</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      -->
+      </section>
+      <section>
+        <section>
+          <h2>HTTP</h2>
+          <ul>
+            <li>Hypertext Transfer Protocol</li>
+            <li>Version 1.1 im Jahr 1999 veröffentlicht</li>
+            <li></li>
+          </ul>
+        </section>
+
         <section>
           <h2>HTTP-Request</h2>
           <pre><code class="http smaller" data-trim>
@@ -352,6 +398,27 @@
         </section>
 
       </section>
+      <section>
+        <section>
+          <h2>Schnittstellen-Dokumentation</h2>
+        </section>
+        <section>
+          <h2>OpenAPI Specification</h2>
+          <ul>
+            <li>Auch bekannt als <span class="myred">Swagger</span></li>
+            <li>Definiertes Format zu Beschreibung von REST-Webservices</li>
+          </ul>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h2>Vielen Dank für Eure Aufmerksamkeit</h2>
+          <img width="60%" src="thesis_defense_2x.png" alt="The best thesis defense is a good thesis offense." /><br />
+
+          <span style="font-size: x-small">Bild von <a href="https://xkcd.com/1403/">XKCD</a></span>
+        </section>
+      </section>
+
 
     </div>
   </div>
