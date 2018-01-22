@@ -102,10 +102,12 @@
 						POST http://server/ressource HTTP/1.1
 						AnderesHeaderFeld: test2
 
-            </code><code class="xml" data-trim>
-							<daten>
-								<struktur>4711</struktur>
-							</daten>
+            </code><code class="json" data-trim>
+              {
+                "daten": {
+                  "struktur": 4711
+                }
+              }
 						</code></pre>
           </pre>
         </section>
@@ -114,18 +116,20 @@
           <pre class="fragment"><code class="http smaller" data-trim>
 						HTTP/1.1 200 OK
 						HeaderFeld3: test3
-					</code><code class="xml" data-trim>
-						<daten>
-							<struktur>4712</struktur>
-						</daten>
+					</code><code class="json" data-trim>
+            {
+              "daten": {
+                "struktur": 4712
+              }
+            }
 					</code></pre>
 
           <pre class="fragment"><code class="http smaller" data-trim>
 						HTTP/1.1 404 Not Found
-					</code><code class="xml" data-trim>
-						<fehler>
-							<nachricht>Keine Daten gefunden</nachricht>
-						</fehler>
+					</code><code class="json" data-trim>
+            {
+              "nachricht": "Keine Daten gefunden"
+            }
 					</code></pre>
         </section>
         <section>
@@ -230,17 +234,19 @@
 						GET http://server/kunden/ HTTP/1.1
 					</code></pre>
 
-          <pre class="fragment"><code class="http">HTTP/1.1 200 OK</code><code class="xml smaller" data-trim>
-							<kunden>
-								<kunde nr="4711">
-									<name>Max Mustermann</name>
-									<adresse>Musterstraße 42, 2819 Bremen</adresse>
-								</kunde>
-								<kunde nr="4712">
-									<name>Maxi Musterfrau</name>
-									<adresse>Musterstraße 43, 2819 Bremen</adresse>
-								</kunde>
-							</kunden>
+          <pre class="fragment"><code class="http">HTTP/1.1 200 OK</code><code class="json smaller" data-trim>
+              [
+                {
+                  "nr": 4711,
+                  "name": "Max Mustermann",
+                  "adresse": "Musterstraße 42, 28195 Bremen"
+                },
+                {
+                  "nr": 4711,
+                  "name": "Maxi Musterfrau",
+                  "adresse": "Musterstraße 43, 28195 Bremen"
+                }
+              ]
 						</code></pre>
         </section>
 
@@ -250,21 +256,23 @@
 						GET http://server/kunden/4711 HTTP/1.1
 					</code></pre>
 
-          <pre class="fragment"><code class="http">HTTP/1.1 200 OK</code><code class="xml smaller" data-trim>
-						<kunde nr="4711">
-							<name>Max Mustermann</name>
-							<adresse>Musterstraße 42, 2819 Bremen</adresse>
-							<konten>
-								<konto nr="471101">
-									<bezeichnung>Gehaltskonto</bezeichnung>
-									<saldo>123,45 €</saldo>
-								</konto>
-								<konto nr="471102">
-									<bezeichnung>Sparkonto</bezeichnung>
-									<saldo>123450 €</saldo>
-								</konto>
-							</konten>
-						</kunde>
+          <pre class="fragment"><code class="http">HTTP/1.1 200 OK</code><code class="json smaller" data-trim>
+            {
+              "nr": 4711,
+              "name": "Max Mustermann",
+              "adresse": "Musterstraße 42, 28195 Bremen",
+              "konten": [
+                {
+                  "nr": 471101,
+                  "bezeichnung": "Gehaltskonto",
+                  "saldo": 123.45
+                }, {
+                  "nr": 471102,
+                  "bezeichnung": "Sparkonto",
+                  "saldo": 123450
+                }
+              ]
+            }
 					</code></pre>
         </section>
 
@@ -274,10 +282,10 @@
 						GET http://server/kunden/4711/konten/471103 HTTP/1.1
 					</code></pre>
 
-          <pre class="fragment"><code class="http">HTTP/1.1 404 Not Found</code><code class="xml" data-trim>
-						<fehler>
-							<nachricht>Konto nicht gefunden</nachricht>
-						</fehler>
+          <pre class="fragment"><code class="http">HTTP/1.1 404 Not Found</code><code class="json" data-trim>
+            {
+              "nachricht": "Konto nicht gefunden"
+            }
 					</code></pre>
         </section>
 
@@ -286,17 +294,18 @@
           <pre><code class="http" data-trim>
 						POST http://server/kunden/4711/konten/ HTTP/1.1
 					</code><code class="xml" data-trim>
-								<konto nr="471103">
-									<bezeichnung>Bausparkonto</bezeichnung>
-								</konto>
+            {
+              "bezeichnung": "Bausparkonto"
+            }
 						</code></pre>
 
 
-          <pre class="fragment"><code class="http">201 - Created</code><code class="xml" data-trim>
-							<konto nr="471103">
-								<bezeichnung>Bausparkonto</bezeichnung>
-								<saldo>0,00 €</saldo>
-							</konto>
+          <pre class="fragment"><code class="http">HTTP/1.1 201 - Created</code><code class="xml" data-trim>
+          {
+            "nr": 471103,
+            "bezeichnung": "Bausparkonto",
+            "saldo": 0.0
+          }
 					</code></pre>
         </section>
 
@@ -306,11 +315,12 @@
 						GET http://server/kunden/4711/konten/471103 HTTP/1.1
 					</code></pre>
 
-          <pre class="fragment" data-trim><code class="http">200 - OK</code><code class="xml" data-trim>
-							<konto nr="471103">
-								<bezeichnung>Bausparkonto</bezeichnung>
-								<saldo>0,00 €</saldo>
-							</konto>
+          <pre class="fragment" data-trim><code class="http">HTTP/1.1 200 - OK</code><code class="json" data-trim>
+            {
+              "nr": 471103,
+              "bezeichnung": "Bausparkonto",
+              "saldo": 0.0
+            }
 					</code></pre>
         </section>
 
