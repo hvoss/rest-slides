@@ -325,6 +325,15 @@
         </section>
 
         <section>
+          <h2>Ein Konto löschen</h2>
+          <pre><code class="http" data-trim>
+						GET http://server/kunden/4711/konten/471101 HTTP/1.1
+					</code></pre>
+
+          <pre class="fragment" data-trim><code class="http">HTTP/1.1 204 - No Content</code></pre>
+        </section>
+
+        <section>
           <h2>So nicht:</h2>
           <span class="fragment"><strong>GET</strong> konto_lesen/kontodaten_lesen_zu_konto</span>
           <span class="fragment">/{userid}</span><span class="fragment">/{opt1}</span><span class="fragment">/{opt2}</span><span class="fragment">/{opt3}</span><span class="fragment">/{isowhrcd}</span><span class="fragment">/{pgmname}</span><span class="fragment">/{aufrufer}</span>
